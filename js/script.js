@@ -52,8 +52,8 @@ function getUserCardInfo(employees) {
         card.classList.add('card');
         const employeeImage= document.createElement('div');
         const employeeItems = document.createElement('div');
-        employeeImage.setAttribute('class',"card-img-container");
-        employeeItems.setAttribute('class',"card-info-container");
+        employeeImage.classList.add('card-img-container');
+        employeeItems.classList.add('card-info-container');
 
         galleryClass[0].appendChild(card);
         card.appendChild(employeeImage);
@@ -73,7 +73,6 @@ function getUserCardInfo(employees) {
 
 // when the user clicks on user card
 gallery.addEventListener('click', e => {
-    
     
     const el = e.target;
     // if element clicked on has class='card' and isn't empty...
