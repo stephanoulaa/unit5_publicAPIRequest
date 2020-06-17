@@ -13,6 +13,13 @@ function getJSON(apiUrl, callback) {
     xhr.send();
 }
 
+// store employye info (results from api) in an array, that gets populated by users returned by json
+let results = [];
+getJSON(apiUrl, (returnedData) => {
+    results = returnedData.results;
+});
+
+
 // create the modal window
 const modalInfoContainer=document.createElement('div');
 modalInfoContainer.classList.add('modal-info-container');
@@ -31,7 +38,6 @@ function getModalInfo(modalInfoContainer, employee) {
         '<img class="modal-img" src="'+employee.picture.medium+'" alt="profile picture"><h3 id="name" class="modal-name cap">' + employee.name.first + ' ' + employee.name.last + '</h3><p class="modal-text">' + employee.email + '</p><p class="modal-text-cap">' + employee.location.city + '</p><hr><p class="modal-text">' + employee.phone.slice(0,5) + ' ' + employee.phone.slice(6) + '</p><p class="modal-text">' + employee.location.street.number + ' ' + employee.location.street.name + ', ' + employee.location.city + ', ' + employee.location.state + ', ' + employee.location.postcode + '</p><p class="modal-text">Birthday: ' + birthdayDay + '/' + birthdayMonth + '/' + birthdayYear + '</p>';
          
 }
-
 
 // get card for each user profile
 const galleryClass = document.getElementsByClassName('gallery');
@@ -62,18 +68,14 @@ function getUserCardInfo(employees) {
     })
 };
 
-// store employye info (results from api) in an array, that gets populated by users returned by json
-let results = [];
-getJSON(apiUrl, (returnedData) => {
-    results = returnedData.results;
-});
+
+
 
 // when the user clicks on user card
 gallery.addEventListener('click', e => {
     
     
     const el = e.target;
-    
     // if element clicked on has class='card' and isn't empty...
     if (el.getAttribute('class') !== null) {
         if (el.getAttribute('class').includes('card')) {
@@ -88,7 +90,6 @@ gallery.addEventListener('click', e => {
         // this lets us find the user by going thru the results array, so that it shows up on the modal and so below code can run
         var employee = results.find(employee => employee.name.first === firstName && employee.name.last === lastName);
 
-            
         // define html elements related to modal, and assign classes to them
         const modalContainer=document.createElement('div');
         modalContainer.classList.add('modal-container');
